@@ -1,0 +1,17 @@
+{
+  "name": "test-results-api",
+  "version": "0.0.1",
+  "description": "Rest interface to store, fetch and generate allure test reports.",
+  "main": "start.js",
+  "author": "Asser Hakala",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@hapi/hapi": "^18.3.1",
+    "@hapi/inert": "^5.2.1",
+    "config": "^3.1.0"
+  },
+  "devDependencies": {
+    "@jest/core": "^24.8.0"
+  }
+}

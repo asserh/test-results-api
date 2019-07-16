@@ -1,23 +1,35 @@
-import * as hapi from '@hapi/hapi';
+import { Server } from '@hapi/hapi';
+import { Routes } from './routes/routes';
+import * as config from 'config';
 
-interface Config {
-  port: number,
-  host: string,
+class Config {
+  port: number = config.get('port');
+  host: string = config.get('host');
 }
 
-class Service {
-  server: any;
-  config: Config;
+export class Service {
+  server_config: Config = new Config();
+  server: Server = new Server(this.server_config);
+  routes = Routes;
 
-  constructor(config: Config) {
-    this.config = config;
-    this.server = hapi.Server(this.config);
+  constructor() {
     this.setUpRoutes();
   }
+
   private setUpRoutes() {
-    return 'hello';
+    this.server.route(this.routes);
   }
-  start() {
-    return this.server.start();
+
+  private async registerPlugins() {
+    await this.server.register([]);
+  }
+
+  async start() {
+    await this.registerPlugins();
+    await this.server.start();
+  }
+
+  async stop() {
+    await this.server.stop();
   }
 }

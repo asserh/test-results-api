@@ -1,8 +1,9 @@
 module.exports = {
-  port: undefined, 
+  port: undefined,
+  host: undefined,
   storage: undefined,
   aws: {
-    access_key: id,
-    secret_key: id,
+    accessKeyId: id,
+    secretAccessKey: id,
   }
 }

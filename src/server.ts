@@ -12,7 +12,7 @@ export class Server extends HapiServer {
 
   constructor(config: Config = new Config()) {
     super(config);
-    this.route(this.routes);
+    super.route(this.routes);
   }
 
   async runWithPlugins() {

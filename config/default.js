@@ -3,7 +3,8 @@ module.exports = {
   host: undefined,
   storage: undefined,
   aws: {
-    accessKeyId: id,
-    secretAccessKey: id,
+    region: 'eu-north-1',
+    accessKeyId: undefined,
+    secretAccessKey: undefined,
   }
 }

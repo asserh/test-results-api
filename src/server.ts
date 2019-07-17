@@ -1,35 +1,22 @@
-import { Server } from '@hapi/hapi';
+import { Server as HapiServer, ServerRoute } from '@hapi/hapi';
 import { Routes } from './routes/routes';
-import * as config from 'config';
+import config from 'config';
 
 class Config {
   port: number = config.get('port');
   host: string = config.get('host');
 }
 
-export class Service {
-  server_config: Config = new Config();
-  server: Server = new Server(this.server_config);
-  routes = Routes;
+export class Server extends HapiServer {
+  private routes: ServerRoute[] = Routes;
 
-  constructor() {
-    this.setUpRoutes();
+  constructor(config: Config = new Config()) {
+    super(config);
+    this.route(this.routes);
   }
 
-  private setUpRoutes() {
-    this.server.route(this.routes);
-  }
-
-  private async registerPlugins() {
-    await this.server.register([]);
-  }
-
-  async start() {
-    await this.registerPlugins();
-    await this.server.start();
-  }
-
-  async stop() {
-    await this.server.stop();
+  async runWithPlugins() {
+    await super.register([]);
+    await super.start();
   }
 }

@@ -22,6 +22,7 @@ describe('server-test.js', function () {
     it('should set up routes', () => {
       for (let { method, path } of Routes) {
         const match = server.match(method as Util.HTTP_METHODS_PARTIAL, path);
+
         if (!match) {
           should.fail(
             null,
@@ -34,6 +35,7 @@ describe('server-test.js', function () {
 
     it('should configure host:port', () => {
       const { port, host } = server.info;
+      
       port.should.eql(test_configuration.port);
       host.should.eql(test_configuration.host);
     });

@@ -1,18 +1,12 @@
-import { Credentials, Config } from 'aws-sdk';
+import { Config } from 'aws-sdk';
+import { ConfigurationOptions } from 'aws-sdk/lib/config';
+import { AWSCredentials } from './aws-credentials';
 import config from 'config';
 
-class AWSCredentials extends Credentials {
-  constructor(options = {
-    accessKeyId: config.get('aws.accessKeyId') as string,
-    secretAccessKey: config.get('aws.secretAccessKey') as string,
-  }) {
-    super(options);
-  }
-}
-
-class Options {
+class Options implements ConfigurationOptions {
   credentials: AWSCredentials = new AWSCredentials();
   region: string = config.get('aws.region');
+  endpoint: string = config.get('aws.endpoint');
 }
 
 export class AWSConfig extends Config {

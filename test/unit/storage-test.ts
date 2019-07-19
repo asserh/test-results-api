@@ -41,7 +41,7 @@ describe('storage-test.ts', () => {
           .catch((err) => { throw err; });
 
         await storage.getObject(testObject).promise()
-          .catch((err) => { should.fail(err, {} , 'Object could not be found' ); });
+          .catch((err) => { should.ok(err, 'Object could not be found' ); });
       });
     });
     

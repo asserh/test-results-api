@@ -6,7 +6,7 @@ import { Routes } from '../../src/routes/routes';
 import { Util } from '@hapi/hapi';
 import config from 'config';
 
-describe('server-test.js', function () {
+describe.only('server-test.js', function () {
   let server: Server;
   const testConfiguration = {
     host: config.get('host'),

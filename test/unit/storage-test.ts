@@ -1,21 +1,20 @@
 import 'should';
 import 'mocha';
-import { 
-  Storage,
-  PutObjectRequest,
-  DeleteObjectRequest } from '../../src/storage';
-  import config from 'config';
+import { Storage, ObjectRequest } from '../../src/storage';
+import config from 'config';
+import should from 'should';
 
-describe.only('storage-test.ts', () => {
+describe('storage-test.ts', () => {
   describe('S3 Storage', () => {
     let storage: Storage;
-    const testRunDir: PutObjectRequest | DeleteObjectRequest = {
+    const testRunDir: ObjectRequest = {
       Bucket: config.get('aws.bucket'),
       Key: `run-${new Date().getTime()}/`,
     };
 
     before('Init storage, create test directory', async () => {
       storage = new Storage();
+  
       try { 
         await storage.putObject(testRunDir).promise();
       } catch(err) {
@@ -32,29 +31,25 @@ describe.only('storage-test.ts', () => {
     });
     
     describe('S3 Objects', () => {
-      let testObject: PutObjectRequest | DeleteObjectRequest = {
+      let testObject: ObjectRequest = {
         Bucket: testRunDir.Bucket,
         Key: 'test_object.xml',
       };
 
-      it('should create an object', async () => {
-        try {
-          const res = storage.putObject(testObject).promise();
-          res.should.be.resolved();
-        } catch (err) {
-          err.should.not.exist();
-          throw err;
-        }
+      it('should create an object in the test dir', async () => {
+        await storage.putObject(testObject).promise()
+          .catch((err) => { throw err; })
+
+        const res = await storage.getObject(testObject).promise()
+          .catch((err) => { should.fail(err, {} , 'Object could not be found' ) });
       });
   
-      it('should delete an object', () => {
-        try {
-          const res = storage.deleteObject(testObject).promise();
-          res.should.be.resolved();
-        } catch (err) {
-          err.should.not.exist();
-          throw err;
-        }
+      it('should delete an object', async () => {
+        await storage.deleteObject(testObject).promise()
+          .catch((err) => { throw err; })
+
+        const res = await storage.getObject(testObject).promise()
+          .catch((err) => { should.fail(err, {} , 'Object could not be found' ) });
       });
     });
     

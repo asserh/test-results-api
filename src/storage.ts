@@ -2,9 +2,18 @@ import S3 from 'aws-sdk/clients/s3';
 import { AWSConfig } from './aws-util/aws-config';
 
 export class Storage extends S3 {
-  constructor(awsConfig: AWSConfig = new AWSConfig()) {
-      super(awsConfig);
+  public constructor(awsConfig: AWSConfig = new AWSConfig()) {
+    super(awsConfig);
   }
 }
 
-export { PutObjectRequest, DeleteObjectRequest } from 'aws-sdk/clients/s3';
+export interface ObjectRequest {
+  Bucket: string;
+  Key: string;
+}
+
+export { 
+  PutObjectRequest,
+  DeleteObjectRequest,
+  GetObjectRequest
+} from 'aws-sdk/clients/s3';

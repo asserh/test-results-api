@@ -3,19 +3,19 @@ import { Routes } from './routes/routes';
 import config from 'config';
 
 class Config {
-  port: number = config.get('port');
-  host: string = config.get('host');
+  public port: number = config.get('port');
+  public host: string = config.get('host');
 }
 
 export class Server extends HapiServer {
-  private routes: ServerRoute[] = Routes;
+  private readonly routes: ServerRoute[] = Routes;
 
-  constructor(config: Config = new Config()) {
+  public constructor(readonly config: Config = new Config()) {
     super(config);
     super.route(this.routes);
   }
 
-  async runWithPlugins() {
+  public async runWithPlugins(): Promise<void> {
     await super.register([]);
     await super.start();
   }

@@ -9,4 +9,4 @@ module.exports = {
     endpoint: 's3.eu-north-1.amazonaws.com', 
     s3BucketEndpoint: undefined,
   }
-}
+};

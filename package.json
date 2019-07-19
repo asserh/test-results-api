@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "NODE_ENV=test ts-mocha ./test/**/**"
+    "test": "NODE_ENV=test ts-mocha ./test/**/**",
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@hapi/hapi": "^18.3.1",

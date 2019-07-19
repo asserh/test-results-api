@@ -10,7 +10,7 @@ class Config {
 export class Server extends HapiServer {
   private readonly routes: ServerRoute[] = Routes;
 
-  public constructor(readonly config: Config = new Config()) {
+  public constructor(config: Config = new Config()) {
     super(config);
     super.route(this.routes);
   }

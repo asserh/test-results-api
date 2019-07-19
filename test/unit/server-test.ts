@@ -8,8 +8,7 @@ import config from 'config';
 
 describe('server-test.js', function () {
   let server: Server;
-  let test: Util.HTTP_METHODS
-  const test_configuration = {
+  const testConfiguration = {
     host: config.get('host'),
     port: config.get('port'),
   };
@@ -20,7 +19,7 @@ describe('server-test.js', function () {
 
   describe('instantiating a new server', () => {
     it('should set up routes', () => {
-      for (let { method, path } of Routes) {
+      for (const { method, path } of Routes) {
         const match = server.match(method as Util.HTTP_METHODS_PARTIAL, path);
 
         if (!match) {
@@ -36,8 +35,8 @@ describe('server-test.js', function () {
     it('should configure host:port', () => {
       const { port, host } = server.info;
       
-      port.should.eql(test_configuration.port);
-      host.should.eql(test_configuration.host);
+      port.should.eql(testConfiguration.port);
+      host.should.eql(testConfiguration.host);
     });
-  })
+  });
 });

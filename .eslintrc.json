@@ -19,6 +19,7 @@
     "rules": { 
         "@type-script-eslint/no-parameter-properties": 0,
         "@typescript-eslint/indent": [ "error", 2 ],
+        "eol-last": [ "error", "always"],
         "indent": [
             "error",
             2
@@ -40,7 +41,7 @@
         {
             "files": ["*-test.ts"],
             "rules": {
-                "@type-script-eslint/excplicit-function-return-type": 0
+                "@typescript-eslint/explicit-function-return-type": 0  
             }
         }
     ]

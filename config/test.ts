@@ -7,4 +7,4 @@ module.exports = {
     bucket: 'test_runs',
     endpoint: 's3.eu-north-1.amazonaws.com/test-results-b',
   }
-}
+};

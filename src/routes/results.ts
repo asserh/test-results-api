@@ -1,22 +1,41 @@
 import { Handler } from './handler';
 import { Storage } from '../storage';
-import { ServerRoute, Lifecycle, Request, ResponseToolkit } from '@hapi/hapi';
+import cheerio from 'cheerio';
+
+import { 
+  ServerRoute,
+  Lifecycle,
+  Request,
+  ResponseToolkit
+} from '@hapi/hapi';
 
 export class ResultHandler extends Handler {
-  private storage: Storage;
+  private storage?: Storage;
   public route: ServerRoute = {
     path: '/results',
     method: 'POST',
-    handler: this.handler,
-  }
+    options: {
+      handler: this.handler,
+      payload: {
+        defaultContentType: 'text/xml'
+      },
+    },
+  };
  
-  public constructor(storage: Storage) {
+  public constructor(storage?: Storage) {
     super();
     this.storage = storage;
   }
 
-  protected async handler(): Promise<string> {
-    return 'ok';
+  protected async handler(request: Request, h: ResponseToolkit): Promise<any> {
+    const payload: string = request.payload as string;
+    const xml = cheerio.load(payload, { xmlMode: true });
+
+    if(!xml || xml('id').text() !== 'allure') {
+      return h.response().code(403);
+    }
+    
+    return h.response().code(202);
   }
 }
 

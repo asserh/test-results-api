@@ -1,9 +1,14 @@
-import { Lifecycle, ServerRoute as Route } from '@hapi/hapi';
-type hej = Lifecycle.Method;
+import { 
+  Lifecycle,
+  ResponseToolkit,
+  Request,
+  ServerRoute as Route,
+} from '@hapi/hapi';
+
 export abstract class Handler {
   public abstract route: Route;
-  protected abstract handler: string;
+  protected abstract async handler(
+    request: Request,
+    h: ResponseToolkit,
+    err: Error): Promise<Lifecycle.ReturnValue>;
 }
-
-export { hej };
-

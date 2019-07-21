@@ -1,22 +1,26 @@
-import { Handler, hej } from './handler';
+import { Handler } from './handler';
 import { Storage } from '../storage';
+import { ServerRoute, Lifecycle, Request, ResponseToolkit } from '@hapi/hapi';
 
 export class ResultHandler extends Handler {
-  private storage: Storage = new Storage();
-  public constructor() {
+  private storage: Storage;
+  public route: ServerRoute = {
+    path: '/results',
+    method: 'POST',
+    handler: this.handler,
+  }
+ 
+  public constructor(storage: Storage) {
     super();
-    this.route = {}
-    this.handler = this.handle;
+    this.storage = storage;
   }
 
-  handler(request: Request, h: ResponseToolkit, err: Error): Promise<hej> {
-    return 'hej';
-  }
+  protected async handler(): Promise<string> {
+    return 'ok';
   }
 }
+
 export const getResults: ServerRoute = {
   path: '/results',
   method: 'POST',
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  handler: new ResultHandler().storeXml(),
 };

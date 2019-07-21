@@ -2,12 +2,14 @@ import 'should';
 import * as should from 'should';
 import 'mocha';
 import { Server } from '../../src/server';
-import { Routes } from '../../src/routes/routes';
+import { ApiRoutes } from '../../src/api';
 import { Util } from '@hapi/hapi';
 import config from 'config';
 
-describe.only('server-test.js', function () {
+describe('server-test.js', function () {
   let server: Server;
+  const routes = new ApiRoutes().list;
+
   const testConfiguration = {
     host: config.get('host'),
     port: config.get('port'),
@@ -19,7 +21,7 @@ describe.only('server-test.js', function () {
 
   describe('instantiating a new server', () => {
     it('should set up routes', () => {
-      for (const { method, path } of Routes) {
+      for (const { method, path } of routes) {
         const match = server.match(method as Util.HTTP_METHODS_PARTIAL, path);
 
         if (!match) {

@@ -33,7 +33,7 @@ describe('api-test.ts', () => {
 
         it('should return 403 error', async () => {
           await post(url, { body: body })
-            .catch((err) => { err.statusCode.should.eql(403); });
+            .catch((err) => { err.statusCode.should.eql(422); });
         });
       });
 

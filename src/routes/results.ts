@@ -32,7 +32,7 @@ export class ResultHandler extends Handler {
     const xml = cheerio.load(payload, { xmlMode: true });
 
     if(!xml || xml('id').text() !== 'allure') {
-      return h.response().code(403);
+      return h.response().code(422);
     }
     
     return h.response().code(202);

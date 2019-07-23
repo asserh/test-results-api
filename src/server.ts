@@ -1,4 +1,4 @@
-import { Server as HapiServer, ServerRoute } from '@hapi/hapi';
+import { Server as HapiServer } from '@hapi/hapi';
 import { ApiRoutes } from './api';
 import config from 'config';
 
@@ -8,11 +8,15 @@ class Config {
 }
 
 export class Server extends HapiServer {
-  private apiRoutes: ApiRoutes = new ApiRoutes();
+  private _routes: ApiRoutes;
 
-  public constructor(config: Config = new Config()) {
+  public constructor(
+    config: Config = new Config(),
+    routes: ApiRoutes = new ApiRoutes(),
+  ) {
     super(config);
-    this.route(this.apiRoutes.list);
+    this._routes = routes;
+    this.route(this._routes.list);
   }
 
   public async runWithPlugins(): Promise<void> {

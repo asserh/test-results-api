@@ -4,7 +4,8 @@ import { Server } from '../../src/server';
 import { post } from 'request-promise-native';
 import config from 'config';
 
-describe.only('api-test.ts', () => {
+describe('api-test.ts', () => {
+
   describe('running service', () => {
     let server: Server;
     const url = `http://${config.get('host')}:${config.get('port')}/results`;
@@ -19,20 +20,14 @@ describe.only('api-test.ts', () => {
     });
 
     describe('calling /results', () => {
-      describe('with a good XML payload', () => {
-        const body = '<?xml version="1.0" encoding="UTF-8"?>\n<id>allure</id>';
-  
-        it('should return 202 OK', async () => {
-          const res = await post(url, { body: body, resolveWithFullResponse: true });
-          res.statusCode.should.eql(202);
-        });
-      });
 
-      describe('with a bad XML payload', () => {
-        const body = '<?xml version="1.0" encoding="UTF-8"?>\n<id>something</id>';
-
-        it('should return 403 error', async () => {
-          await post(url, { body: body })
+      describe('if Content-Type is not application/zip', () => {
+        it('should reject with an error', async () => {
+          const options = {
+            headers: { 'Content-Type': 'application/zip'},
+            resolveWithFullResponse: true
+          };
+          await post(url, options)
             .catch((err) => { err.statusCode.should.eql(422); });
         });
       });

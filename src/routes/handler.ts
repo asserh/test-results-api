@@ -1,7 +1,5 @@
 import { 
   Lifecycle,
-  ResponseToolkit,
-  Request,
   ServerRoute as Route,
 } from '@hapi/hapi';
 

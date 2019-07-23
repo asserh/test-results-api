@@ -4,7 +4,6 @@ import cheerio from 'cheerio';
 
 import { 
   ServerRoute,
-  Lifecycle,
   Request,
   ResponseToolkit
 } from '@hapi/hapi';
@@ -15,7 +14,6 @@ export class ResultHandler extends Handler {
     path: '/results',
     method: 'POST',
     options: {
-      handler: this.handler,
       payload: {
         defaultContentType: 'text/xml'
       },
@@ -25,9 +23,11 @@ export class ResultHandler extends Handler {
   public constructor(storage?: Storage) {
     super();
     this.storage = storage;
+    this.route.handler = this.handler;
+    
   }
 
-  protected async handler(request: Request, h: ResponseToolkit): Promise<any> {
+  protected handler = async function(request: Request, h: ResponseToolkit) {
     const payload: string = request.payload as string;
     const xml = cheerio.load(payload, { xmlMode: true });
 

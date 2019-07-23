@@ -4,7 +4,7 @@ import { Server } from '../../src/server';
 import { post } from 'request-promise-native';
 import config from 'config';
 
-describe('api-test.ts', () => {
+describe.only('api-test.ts', () => {
   describe('running service', () => {
     let server: Server;
     const url = `http://${config.get('host')}:${config.get('port')}/results`;

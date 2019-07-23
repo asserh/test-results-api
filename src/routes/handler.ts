@@ -7,8 +7,5 @@ import {
 
 export abstract class Handler {
   public abstract route: Route;
-  protected abstract async handler(
-    request: Request,
-    h: ResponseToolkit,
-    err: Error): Promise<Lifecycle.ReturnValue>;
+  protected abstract handler: Lifecycle.Method;
 }

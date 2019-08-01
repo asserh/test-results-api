@@ -1,15 +1,16 @@
 import { ServerRoute } from '@hapi/hapi';
 import { Handler } from './routes/handler';
-import { ResultHandler } from './routes/results';
+import { ResultsHandler } from './routes/results';
 import { Storage } from './storage';
 
 export class ApiRoutes {
-  private storage = new Storage();
-  private resultHandler: Handler;
+  private storage: Storage;
+  private resultsHandler: Handler;
   public list: ServerRoute[];
 
-  public constructor() {
-    this.resultHandler = new ResultHandler(this.storage);
-    this.list = [ this.resultHandler.route ];
+  public constructor(storage = new Storage()) {
+    this.storage = storage;
+    this.resultsHandler = new ResultsHandler(this.storage);
+    this.list = [ this.resultsHandler.route ];
   }
 }

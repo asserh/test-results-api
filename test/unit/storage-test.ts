@@ -4,28 +4,19 @@ import { Storage, ObjectRequest } from '../../src/storage';
 import config from 'config';
 import should from 'should';
 
-describe('storage-test.ts', () => {
+describe.only('storage-test.ts', () => {
   describe('S3 Storage', () => {
     let storage: Storage;
-    const testRunDir: ObjectRequest = {
-      Bucket: config.get('aws.bucket'),
-      Key: `run-${new Date().getTime()}/`,
-    };
+    const bucket = config.get('aws.bucket') as string;
 
-    before('Init storage, create test directory', async () => {
+    before(() => {
       storage = new Storage();
-      await storage.putObject(testRunDir).promise();
-    });
-
-    after('Delete test directory', async () => {
-      await storage.deleteObject(testRunDir).promise();
-
     });
     
     describe('S3 Objects', () => {
       const testObject: ObjectRequest = {
-        Bucket: testRunDir.Bucket,
-        Key: 'test_object.xml',
+        Bucket: bucket,
+        Key: 'test/test_object.xml',
       };
 
       it('should create an object in the test dir', async () => {

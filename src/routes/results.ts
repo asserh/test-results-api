@@ -3,6 +3,7 @@ import { Handler } from './handler';
 import { Storage } from '../storage';
 import JSZip from 'jszip';
 import moment from 'moment';
+import config from 'config';
 import { 
   ServerRoute,
   Request,
@@ -34,10 +35,10 @@ export class ResultsHandler extends Handler {
   protected handler = async(request: Request, h: ResponseToolkit): Promise<ResponseObject> => {
     try {
       const zip = await new JSZip().loadAsync(request.payload as Uint8Array);
-      const time = moment.utc();
-      const yearMonthPath = `${time.year()}/${time.month()}`;
+      const bucket = config.get('aws.bucket') as string;
+      const saveDirectory = this.currentMonthAndYear();
       const files: string[] = [];
-
+      
       zip.forEach((relativePath): void => {
         files.push(relativePath);
       });
@@ -47,8 +48,8 @@ export class ResultsHandler extends Handler {
 
         const params = {
           Body: binaryString,
-          Bucket: yearMonthPath,
-          Key: filePath,
+          Bucket: bucket,
+          Key: saveDirectory + filePath,
         };
 
         await this.storage.putObject(params).promise();
@@ -61,5 +62,10 @@ export class ResultsHandler extends Handler {
       console.log(err);
       return h.response().code(422);
     }
+  }
+
+  private currentMonthAndYear(): string {
+    const time = moment.utc();
+    return `${time.year()}/${time.month()}/`;
   }
 }

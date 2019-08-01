@@ -35,8 +35,7 @@ describe('results-handler-test.ts', () => {
           // Have to return object with a promise function
           // because that is what AWS SDK does with promises
           promise: () => {
-            console.log('hek');
-            return 'ok';
+            return {};
           },
         });
         sinon.replace(storage, 'putObject', fake);

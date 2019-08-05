@@ -12,4 +12,6 @@ EXPOSE 80
 RUN apk add nodejs
 WORKDIR /run
 COPY --from=buildStage /tmp/build /run
+COPY --from=buildStage /tmp/node_modules /run/node_modules
+ENV NODE_ENV=production
 ENTRYPOINT [ "node", "start.js" ]

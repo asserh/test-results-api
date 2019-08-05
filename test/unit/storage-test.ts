@@ -10,6 +10,7 @@ describe.only('storage-test.ts', () => {
     const bucket = config.get('aws.bucket') as string;
 
     before(() => {
+      console.log(config.get('aws.accessKeyId'));
       storage = new Storage();
     });
     

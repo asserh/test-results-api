@@ -20,6 +20,13 @@ Make sure you have those installed on your machine, run `yarn install` in the pr
 
 To run the service you'll to set up a S3 Bucket and a user with permissions to access that bucket. You can define AWS keys either in the config files themselves or as an environment variable on your machine (eg AWS_ACCESS_KEY_ID = myaccesskeyid).
 
+
+### Running in docker
+
+`docker build -t test-results .`
+
+`docker run -d -n test-results-api -p 8080:80 test-results`
+
 # API
 
 ## `POST /results`

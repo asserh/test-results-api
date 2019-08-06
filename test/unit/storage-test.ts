@@ -4,7 +4,7 @@ import { Storage, ObjectRequest } from '../../src/storage';
 import config from 'config';
 import should from 'should';
 
-describe.only('storage-test.ts', () => {
+describe('storage-test.ts', () => {
   describe('S3 Storage', () => {
     let storage: Storage;
     const bucket = config.get('aws.bucket') as string;

@@ -18,7 +18,7 @@ Make sure you have those installed on your machine, run `yarn install` in the pr
 
 ### AWS
 
-To run the service you'll to set up a S3 Bucket and a user with permissions to access that bucket. You can define AWS keys either in the config files themselves or as an environment variable on your machine (eg AWS_ACCESS_KEY_ID = myaccesskeyid).
+To run the service you'll to set up a [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#create-bucket-intro) and a [user with permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) to access that bucket. You can define AWS keys either in the config files themselves or as an environment variable on your machine (eg AWS_ACCESS_KEY_ID = myaccesskeyid).
 
 
 ### Running in docker

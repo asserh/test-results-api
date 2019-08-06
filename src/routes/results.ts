@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Handler } from './handler';
 import { Storage } from '../storage';
 import JSZip from 'jszip';

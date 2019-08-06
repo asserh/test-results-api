@@ -21,10 +21,10 @@ describe('api-test.ts', () => {
 
     describe('calling /results', () => {
 
-      describe('if Content-Type is not application/zip', () => {
+      describe('if Content-Type is not application/json', () => {
         it('should reject with an error', async () => {
           const options = {
-            headers: { 'Content-Type': 'application/zip'},
+            headers: { 'Content-Type': 'application/json'},
             resolveWithFullResponse: true
           };
           await post(url, options)

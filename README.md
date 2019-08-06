@@ -18,9 +18,12 @@ Make sure you have those installed on your machine, run `yarn install` in the pr
 
 ### AWS
 
-To run the service you'll to set up a [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#create-bucket-intro) and a [user with permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) to access that bucket. You can define AWS keys either in the config files themselves or as an environment variable on your machine.
+To run the service you'll to set up a [S3 Bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#create-bucket-intro) and a [user with permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) to access that bucket. 
 
-Valid environment variables:
+#### Credentials
+You can define AWS credentials  either in  `config/*.ts` files or as an environment variable on your machine.
+
+Required environment variables:
 * AWS_ACCESS_KEY_ID
 * AWS_SECRET_ACCESS_KEY
 * AWS_BUCKET
@@ -35,6 +38,9 @@ Valid environment variables:
 
 # API
 
+## `GET /ping`
+Example response: `200 OK`
+
 ## `POST /results`
 Endpoint accepts ZIP files. The zip file will be unpacked and, if the files are allure test results, stored in an Amazon S3 bucket. 
 
@@ -45,7 +51,7 @@ Ensure that your request has headers `Content-Type: application/zip` or the serv
 
 ### Example response:
 
-No response body, if successful the server returns status code
-`202 OK`
+If successful, the server returns status code
+`202 OK` and no response body.
 
-In case of error, the server returns status code `422`.
+In case of error, the server returns status code `422` with no response body.

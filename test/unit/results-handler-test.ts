@@ -1,6 +1,6 @@
 import 'should';
 import 'mocha';
-import sinon, { SinonFake } from 'sinon';
+import sinon from 'sinon';
 import config from 'config';
 import JSZip from 'jszip';
 import { promises as fs } from 'fs';

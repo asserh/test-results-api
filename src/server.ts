@@ -18,9 +18,4 @@ export class Server extends HapiServer {
     this._routes = routes;
     this.route(this._routes.list);
   }
-
-  public async runWithPlugins(): Promise<void> {
-    await this.register([]);
-    await this.start();
-  }
 }

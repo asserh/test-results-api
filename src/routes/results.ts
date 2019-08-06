@@ -44,10 +44,10 @@ export class ResultsHandler extends Handler {
       });
 
       const promises = files.map(async(filePath): Promise<void> => {
-        const binaryString = await zip.file(filePath).async('binarystring');
+        const buffer = await zip.file(filePath).async('nodebuffer');
 
         const params = {
-          Body: binaryString,
+          Body: buffer,
           Bucket: bucket,
           Key: saveDirectory + filePath,
         };
@@ -57,7 +57,7 @@ export class ResultsHandler extends Handler {
 
       await Promise.all(promises);
 
-      return h.response().code(202);
+      return h.response(files).code(202);
     } catch (err) {
       console.log(err);
       return h.response().code(422);

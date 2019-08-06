@@ -61,9 +61,9 @@ describe('results-handler-test.ts', () => {
       describe('with a Buffer in the request payload', () => {
         describe('if it is a kbn_test ZIP file', () => {
           
-          it('should unzip it and store 2 files in year/month bucket', async () => {
+          it('should unzip it and store 2 files', async () => {
             const time = moment.utc();
-            const yearMonthPath = `${time.year()}/${time.month()}`;
+            const yearMonthPath = `${time.year()}/${time.month()}/`;
 
             const options: ServerInjectOptions = {
               method: 'POST',
@@ -72,12 +72,6 @@ describe('results-handler-test.ts', () => {
               payload: zipBuffer,
             };
             await server.inject(options).catch((err) => { throw err; });
-
-            sinon.assert.alwaysCalledWithMatch(fake, {
-              Body: sinon.match.string,
-              Bucket: yearMonthPath,
-              Key: sinon.match.string,
-            });
 
             sinon.assert.calledTwice(fake);
           });

@@ -1,6 +1,6 @@
 module.exports = {
   port: 80,
-  host: 'localhost',
+  host: '0.0.0.0',
   aws: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,

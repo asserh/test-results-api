@@ -1,4 +1,4 @@
-import { Handler } from './handler';
+import { Handler } from './common/handler';
 import { Storage } from '../storage';
 import JSZip from 'jszip';
 import moment from 'moment';

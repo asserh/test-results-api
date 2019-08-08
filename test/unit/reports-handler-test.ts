@@ -9,7 +9,7 @@ import { ApiRoutes } from '../../src/api';
 
 const url = `http://${config.get('host')}:${config.get('port')}/reports`;
 
-describe('reports-handler-test.ts', () =>  {
+describe.only('reports-handler-test.ts', () =>  {
   let storage: Storage;
   let server: Server;
   let apiRoutes: ApiRoutes;
@@ -17,7 +17,7 @@ describe('reports-handler-test.ts', () =>  {
 
   describe('Calling report handler', () => {
     let response;
-    
+
     before('New server instance', () => {
       storage = new Storage();
       apiRoutes = new ApiRoutes(storage);
@@ -29,10 +29,14 @@ describe('reports-handler-test.ts', () =>  {
         method: 'GET',
         url: url,
       };
-
       response = await server.inject(options).catch((err) => { throw err; });
     });
 
+    it('should execute an allure child process and generate a report', () => {
+      console.log(response.statusCode);
+      console.log(response.payload);
+      response.should.be.ok();
+    });
     
   });
 });

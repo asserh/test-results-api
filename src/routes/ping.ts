@@ -1,4 +1,4 @@
-import { Handler } from './handler';
+import { Handler } from './common/handler';
 import { 
   ServerRoute,
   Request,

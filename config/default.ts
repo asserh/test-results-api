@@ -4,6 +4,7 @@ module.exports = {
   port: undefined,
   host: undefined,
   projectDir: path.resolve(__dirname, '../'),
+  localStorage: path.resolve('/local'),
   aws: {
     region: 'eu-north-1',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
